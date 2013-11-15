@@ -41,6 +41,9 @@ public class ParsingTest {
 		parseAndValidate("type-litteral.ts");
 	}
 
+	@Test public void testClass() throws Exception {
+		parseAndValidate("class.ts");
+	}
 
 	protected void parseAndValidate(String resourceName) throws IOException, Exception {
 		String ts = getTS(resourceName);
