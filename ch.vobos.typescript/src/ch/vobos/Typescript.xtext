@@ -1,0 +1,52 @@
+grammar ch.vobos.Typescript with org.eclipse.xtext.common.Terminals
+
+generate typescript "http://www.vobos.ch/Typescript"
+
+Typescript:
+	interfaces += InterfaceDeclaration*;
+
+InterfaceDeclaration:
+	"interface" name=Identifier /* TypeParameters? InterfaceExtendsClause?  */ objectType=ObjectType;
+
+Identifier:
+	ID;
+
+ObjectType: { ObjectType }
+	"{" (members += TypeMember ';'?)* "}";
+
+TypeMember:
+	PropertySignature
+/*	CallSignature
+	ConstructSignature
+	IndexSignature
+	MethodSignature */
+;
+
+PropertySignature:
+	name = IdentifierName // | StringLiteral | NumericLiteral
+	optional ?= "?"?
+	":"
+	type=Type;
+
+IdentifierName:
+	ID;
+
+StringLiteral:
+	STRING;
+
+NumericLiteral:
+	INT // TODO valid NumericLiteral in http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
+;
+
+Type:
+	type = PredefinedType | TypeReference // | TypeQuery | TypeLiteral
+;
+
+TypeReference:
+	reference = [InterfaceDeclaration|QualifiedName];
+
+QualifiedName:
+	ID ('.' ID)* ;
+
+enum PredefinedType:
+	any | number | boolean | string | void;

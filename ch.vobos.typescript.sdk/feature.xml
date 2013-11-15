@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature id="ch.vobos.typescript.sdk"
+	label="Typescript SDK Feature "
+	version="1.0.0.qualifier">
+	<plugin
+			id="ch.vobos.typescript"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+	<plugin
+			id="ch.vobos.typescript.ui"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+</feature>

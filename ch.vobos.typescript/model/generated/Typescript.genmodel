@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/ch.vobos.typescript/src-gen" editDirectory="/ch.vobos.typescript.edit/src"
+    editorDirectory="/ch.vobos.typescript.editor/src" modelPluginID="ch.vobos.typescript"
+    forceOverwrite="true" modelName="Typescript" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="ch.vobos.typescript.edit"
+    editorPluginID="ch.vobos.typescript.editor" runtimeVersion="2.9">
+  <genPackages prefix="Typescript" basePackage="ch.vobos" disposableProviderFactory="true"
+      fileExtensions="ts" ecorePackage="Typescript.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Typescript.ecore#//PredefinedType">
+      <genEnumLiterals ecoreEnumLiteral="Typescript.ecore#//PredefinedType/any"/>
+      <genEnumLiterals ecoreEnumLiteral="Typescript.ecore#//PredefinedType/number"/>
+      <genEnumLiterals ecoreEnumLiteral="Typescript.ecore#//PredefinedType/boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="Typescript.ecore#//PredefinedType/string"/>
+      <genEnumLiterals ecoreEnumLiteral="Typescript.ecore#//PredefinedType/void"/>
+    </genEnums>
+    <genClasses ecoreClass="Typescript.ecore#//Typescript">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Typescript.ecore#//Typescript/interfaces"/>
+    </genClasses>
+    <genClasses ecoreClass="Typescript.ecore#//InterfaceDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Typescript.ecore#//InterfaceDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Typescript.ecore#//InterfaceDeclaration/objectType"/>
+    </genClasses>
+    <genClasses ecoreClass="Typescript.ecore#//ObjectType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Typescript.ecore#//ObjectType/members"/>
+    </genClasses>
+    <genClasses ecoreClass="Typescript.ecore#//TypeMember"/>
+    <genClasses ecoreClass="Typescript.ecore#//PropertySignature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Typescript.ecore#//PropertySignature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Typescript.ecore#//PropertySignature/optional"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Typescript.ecore#//PropertySignature/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Typescript.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Typescript.ecore#//Type/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Typescript.ecore#//TypeReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Typescript.ecore#//TypeReference/reference"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
