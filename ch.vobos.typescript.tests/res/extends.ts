@@ -3,6 +3,10 @@ interface Person {
     birthYear: number
 }
 
-interface Employee extends Person {
-    department: name: string
+interface Resource {
+	load: number
+}
+
+interface Employee extends Person, Resource {
+    name: string
 }
