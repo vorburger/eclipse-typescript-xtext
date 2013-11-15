@@ -16,7 +16,7 @@ InterfaceExtendsClause:
 ;
 
 ClassOrInterfaceTypeList: { ClassOrInterfaceTypeList }
-	(parents += TypeReference ','?)*
+	parents += TypeReference (',' parents += TypeReference)*
 ;
 
 ObjectType: { ObjectType }
