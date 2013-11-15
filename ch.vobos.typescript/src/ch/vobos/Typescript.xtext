@@ -6,10 +6,18 @@ Typescript:
 	interfaces += InterfaceDeclaration*;
 
 InterfaceDeclaration:
-	"interface" name=Identifier /* TypeParameters? InterfaceExtendsClause?  */ objectType=ObjectType;
+	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause? objectType=ObjectType;
 
 Identifier:
 	ID;
+
+InterfaceExtendsClause:
+	"extends" ClassOrInterfaceTypeList
+;
+
+ClassOrInterfaceTypeList: { ClassOrInterfaceTypeList }
+	parents += TypeReference (',' parents += TypeReference)*
+;
 
 ObjectType: { ObjectType }
 	"{" (members += TypeMember ';'?)* "}";
