@@ -31,12 +31,13 @@ ObjectType: { ObjectType }
 	"{" (members += TypeMember ';'?)* "}";
 
 TypeMember:
-	PropertySignature
-/*	CallSignature
-	ConstructSignature
-	IndexSignature
-	MethodSignature */
-;
+    docComment = DocComment?
+    signature = ( PropertySignature
+    /*	| CallSignature
+    	| ConstructSignature
+    	| IndexSignature
+    	| MethodSignature */
+	);
 
 PropertySignature:
 	name = IdentifierName // | StringLiteral | NumericLiteral
@@ -76,10 +77,12 @@ QualifiedName:
 enum PredefinedTypeEnum:
 	any | number | boolean | string | void;
 
-DocComment:
-    '/**' DocCommentLines '*/';
-    
-DocCommentLines:
-    '*'? ;
-    
-//terminal ML_COMMENT : '/*'!'*' -> '*/';
+DocComment: {DocComment}
+    '/**' lines+=DOC_COMMENT_LINE* DOC_COMMENT_END;
+
+terminal DOC_COMMENT_END:
+	(' '|'\t')* '*' '/';
+
+terminal DOC_COMMENT_LINE : (' '|'\t')* '*'!'/' -> ('\r'? '\n');
+
+terminal ML_COMMENT : '/*'!'*' -> '*/';
