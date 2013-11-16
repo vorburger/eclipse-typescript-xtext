@@ -45,6 +45,11 @@ public class ParsingTest {
 		parseAndValidate("class.ts");
 	}
 
+	@Test public void testModule() throws Exception {
+		parseAndValidate("module.ts");
+	}
+
+	
 	protected void parseAndValidate(String resourceName) throws Exception {
 		// see also same code in ch.vobos.typescript.standalone.TypeScriptStandalone.parseAndValidate(String)
 		String ts = getTS(resourceName);
