@@ -6,7 +6,9 @@ Typescript:
 	interfacesAndClasses += Declaration*;
 
 Declaration:
-    (InterfaceDeclaration | ClassDeclaration) objectType=ObjectType;
+    docComment=DocComment? declaration=InterfaceOrClassDeclaration objectType=ObjectType;
+
+InterfaceOrClassDeclaration: InterfaceDeclaration | ClassDeclaration;
 
 InterfaceDeclaration:
 	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause?;
@@ -66,10 +68,17 @@ ArrayType: {ArrayType}
 	ArrayType [ ] */;
 
 TypeReference:
-	reference = [InterfaceDeclaration|QualifiedName];
+	reference = [Declaration|QualifiedName];
 
 QualifiedName:
 	ID ('.' ID)* ;
 
 enum PredefinedTypeEnum:
 	any | number | boolean | string | void;
+
+DocComment:
+    '/**' DocCommentLines '*/';
+    
+DocCommentLines:
+    '*'? ;
+    
