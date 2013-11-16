@@ -43,6 +43,7 @@ public class ParsingTest {
 
 
 	protected void parseAndValidate(String resourceName) throws Exception {
+		// see also same code in ch.vobos.typescript.standalone.TypeScriptStandalone.parseAndValidate(String)
 		String ts = getTS(resourceName);
 		Typescript typeScript = parseHelper.parse(ts);
 		validationHelper.assertNoErrors(typeScript);
