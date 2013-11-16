@@ -6,10 +6,18 @@ Typescript:
 	interfaces += InterfaceDeclaration*;
 
 InterfaceDeclaration:
-	"interface" name=Identifier /* TypeParameters? InterfaceExtendsClause?  */ objectType=ObjectType;
+	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause? objectType=ObjectType;
 
 Identifier:
 	ID;
+
+InterfaceExtendsClause:
+	"extends" ClassOrInterfaceTypeList
+;
+
+ClassOrInterfaceTypeList: { ClassOrInterfaceTypeList }
+	parents += TypeReference (',' parents += TypeReference)*
+;
 
 ObjectType: { ObjectType }
 	"{" (members += TypeMember ';'?)* "}";
@@ -39,8 +47,16 @@ NumericLiteral:
 ;
 
 Type:
-	type = PredefinedType | TypeReference // | TypeQuery | TypeLiteral
+	type = PredefinedType | TypeReference | TypeLiteral // | TypeQuery 
 ;
+
+TypeLiteral:
+	ObjectType | ArrayType  /* | FunctionType | ConstructorType */ ;
+
+ArrayType: {ArrayType}
+	array = PredefinedType "[" "]" |  TypeReference "[" "]" 
+	/*ObjectType [ ] 
+	ArrayType [ ] */;
 
 TypeReference:
 	reference = [InterfaceDeclaration|QualifiedName];

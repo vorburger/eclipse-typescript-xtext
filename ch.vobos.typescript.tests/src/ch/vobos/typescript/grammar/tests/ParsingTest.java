@@ -25,13 +25,22 @@ public class ParsingTest {
 	@Inject ParseHelper<Typescript> parseHelper;
 	@Inject ValidationTestHelper validationHelper;
 	
-	@Test public void testStruct1() throws Exception {
-		parseAndValidate("struct1.ts");
+	@Test public void testSimple() throws Exception {
+		parseAndValidate("simple.ts");
 	}
 
-	@Test public void testStruct2() throws Exception {
-		parseAndValidate("structs2.ts");
+	@Test public void testExtends() throws Exception {
+		parseAndValidate("extends.ts");
 	}
+
+	@Test public void testArray() throws Exception {
+		parseAndValidate("array.ts");
+	}
+
+	@Test public void testTypeLitteral() throws Exception {
+		parseAndValidate("type-litteral.ts");
+	}
+
 
 	protected void parseAndValidate(String resourceName) throws Exception {
 		String ts = getTS(resourceName);
