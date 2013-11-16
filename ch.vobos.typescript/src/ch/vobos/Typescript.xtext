@@ -4,8 +4,10 @@ generate typescript "http://www.vobos.ch/Typescript"
 
 Typescript:
 	imports+= ImportDeclaration*
-	interfacesAndClasses += (ModuleDeclaration  | Declaration)*;
+	interfacesAndClasses=InterfacesAndClasses;
 
+InterfacesAndClasses: {InterfacesAndClasses}
+    (modules+=ModuleDeclaration  | types+=Declaration)*;
 
 ImportDeclaration: 
 	"import" alias=Identifier "=" name=QualifiedName ;
