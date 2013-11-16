@@ -1,12 +1,16 @@
 /* no doc comment  */
 /** 
- * doc comment 
+ * doc comment
+ * @annotation 
  */
 interface VobosVeryFirstTypeScriptStruct {
+    
     /** 
-     * the name 
+     * the name
+     * @annotation 
      */
 	name: string;
+	
 	/**
 	 * the number
 	 */
