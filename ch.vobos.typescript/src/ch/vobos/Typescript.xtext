@@ -46,9 +46,10 @@ NumericLiteral:
 	INT // TODO valid NumericLiteral in http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
 ;
 
-Type:
-	type = PredefinedType | TypeReference | TypeLiteral // | TypeQuery 
-;
+Type: PredefinedType | TypeReference | TypeLiteral; // | TypeQuery 
+
+PredefinedType:
+	predefinedType = PredefinedTypeEnum;
 
 TypeLiteral:
 	ObjectType | ArrayType  /* | FunctionType | ConstructorType */ ;
@@ -64,5 +65,5 @@ TypeReference:
 QualifiedName:
 	ID ('.' ID)* ;
 
-enum PredefinedType:
+enum PredefinedTypeEnum:
 	any | number | boolean | string | void;
