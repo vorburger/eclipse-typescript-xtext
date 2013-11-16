@@ -3,13 +3,16 @@ grammar ch.vobos.Typescript with org.eclipse.xtext.common.Terminals
 generate typescript "http://www.vobos.ch/Typescript"
 
 Typescript:
-	interfacesAndClasses += (InterfaceDeclaration | ClassDeclaration )*;
+	interfacesAndClasses += Declaration*;
+
+Declaration:
+    (InterfaceDeclaration | ClassDeclaration) objectType=ObjectType;
 
 InterfaceDeclaration:
-	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause? objectType=ObjectType;
+	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause?;
 
 ClassDeclaration:
-	"class" name=Identifier /* TypeParameter ClassHeritage */ classType=ObjectType; // TODO: for now we treat interfaces and classes the same
+	"class" name=Identifier /* TypeParameter ClassHeritage */; // TODO: for now we treat interfaces and classes the same
 
 Identifier:
 	ID;
