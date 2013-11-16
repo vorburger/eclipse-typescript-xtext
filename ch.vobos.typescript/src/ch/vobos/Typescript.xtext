@@ -3,7 +3,23 @@ grammar ch.vobos.Typescript with org.eclipse.xtext.common.Terminals
 generate typescript "http://www.vobos.ch/Typescript"
 
 Typescript:
-	interfacesAndClasses += (InterfaceDeclaration | ClassDeclaration )*;
+	imports+= ImportDeclaration*
+	interfacesAndClasses += (InterfaceDeclaration | ClassDeclaration | ModuleDeclaration )*;
+
+ModuleDeclaration:
+	"module" name=Identifier ("." Identifier)*  "{" body=ModuleBody "}" ;
+
+ModuleBody: {ModuleBody}
+	elements+=ModuleElement*;
+
+ModuleElement: 
+		/*Statement |  */ 
+     exported?="export"? moduleContent=( ClassDeclaration |InterfaceDeclaration 
+     /* | EnumDeclaration |VariableDeclaration | FunctionDeclaration  */ | ModuleDeclaration | ImportDeclaration )
+     ';'?; 
+
+ImportDeclaration: 
+	"import" alias=Identifier "=" name=QualifiedName ;
 
 InterfaceDeclaration:
 	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause? objectType=ObjectType;
@@ -15,8 +31,7 @@ Identifier:
 	ID;
 
 InterfaceExtendsClause:
-	"extends" ClassOrInterfaceTypeList
-;
+	"extends" ClassOrInterfaceTypeList;
 
 ClassOrInterfaceTypeList: { ClassOrInterfaceTypeList }
 	parents += TypeReference (',' parents += TypeReference)*
