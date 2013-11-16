@@ -4,28 +4,37 @@ generate typescript "http://www.vobos.ch/Typescript"
 
 Typescript:
 	imports+= ImportDeclaration*
-	interfacesAndClasses += (InterfaceDeclaration | ClassDeclaration | ModuleDeclaration )*;
+	interfacesAndClasses += (ModuleDeclaration  | Declaration)*;
+
+
+ImportDeclaration: 
+	"import" alias=Identifier "=" name=QualifiedName ;
+
 
 ModuleDeclaration:
-	"module" name=Identifier ("." Identifier)*  "{" body=ModuleBody "}" ;
+	docComment=DocComment?  "module" name=Identifier ("." Identifier)*  "{" body=ModuleBody "}" ;
 
 ModuleBody: {ModuleBody}
 	elements+=ModuleElement*;
 
 ModuleElement: 
 		/*Statement |  */ 
-     exported?="export"? moduleContent=( ClassDeclaration |InterfaceDeclaration 
+     exported?="export"? moduleContent=( Declaration 
      /* | EnumDeclaration |VariableDeclaration | FunctionDeclaration  */ | ModuleDeclaration | ImportDeclaration )
      ';'?; 
 
-ImportDeclaration: 
-	"import" alias=Identifier "=" name=QualifiedName ;
+
+Declaration:
+    docComment=DocComment? declaration=InterfaceOrClassDeclaration objectType=ObjectType;
+
+InterfaceOrClassDeclaration: InterfaceDeclaration | ClassDeclaration;
+
 
 InterfaceDeclaration:
-	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause? objectType=ObjectType;
+	"interface" name=Identifier /* TypeParameters? */ extendClause=InterfaceExtendsClause?;
 
 ClassDeclaration:
-	"class" name=Identifier /* TypeParameter ClassHeritage */ classType=ObjectType; // TODO: for now we treat interfaces and classes the same
+	"class" name=Identifier /* TypeParameter ClassHeritage */; // TODO: for now we treat interfaces and classes the same
 
 Identifier:
 	ID;
@@ -78,10 +87,17 @@ ArrayType: {ArrayType}
 	ArrayType [ ] */;
 
 TypeReference:
-	reference = [InterfaceDeclaration|QualifiedName];
+	reference = [Declaration|QualifiedName];
 
 QualifiedName:
 	ID ('.' ID)* ;
 
 enum PredefinedTypeEnum:
 	any | number | boolean | string | void;
+
+DocComment:
+    '/**' DocCommentLines '*/';
+    
+DocCommentLines:
+    '*'? ;
+    
