@@ -28,7 +28,8 @@ public class TypeScriptStandalone {
 		return INSTANCE;
 	}
 
-	private TypeScriptStandalone() {
+	// This must be protected, not private, for Guice 
+	protected TypeScriptStandalone() {
 	}
 
 	private @Inject ParseHelper<Typescript> parseHelper;
