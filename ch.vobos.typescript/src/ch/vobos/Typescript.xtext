@@ -25,9 +25,9 @@ ModuleElement:
 
 
 Declaration:
-    docComment=DocComment? declaration=InterfaceOrClassDeclaration objectType=ObjectType;
+    docComment=DocComment? declaration=InterfaceOrClassDeclaration;
 
-InterfaceOrClassDeclaration: InterfaceDeclaration | ClassDeclaration;
+InterfaceOrClassDeclaration: (InterfaceDeclaration | ClassDeclaration) objectType=ObjectType;
 
 
 InterfaceDeclaration:
@@ -87,7 +87,7 @@ ArrayType: {ArrayType}
 	ArrayType [ ] */;
 
 TypeReference:
-	reference = [Declaration|QualifiedName];
+	reference = [InterfaceOrClassDeclaration|QualifiedName];
 
 QualifiedName:
 	ID ('.' ID)* ;
@@ -101,3 +101,4 @@ DocComment:
 DocCommentLines:
     '*'? ;
     
+//terminal ML_COMMENT : '/*'!'*' -> '*/';
