@@ -35,6 +35,7 @@ public class TypeScriptStandalone {
 	private @Inject ValidationTestHelper validationHelper;
 
 	public Typescript parseAndValidate(String typeScript) throws AssertionError, Exception {
+		// see also same code in ch.vobos.typescript.grammar.tests.ParsingTest.parseAndValidate(String)
 		Typescript typeScriptAST = parseHelper.parse(typeScript);
 		validationHelper.assertNoErrors(typeScriptAST);
 		return typeScriptAST;
