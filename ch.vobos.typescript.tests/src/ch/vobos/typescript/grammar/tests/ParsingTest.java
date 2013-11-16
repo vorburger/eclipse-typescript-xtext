@@ -33,7 +33,7 @@ public class ParsingTest {
 		parseAndValidate("structs2.ts");
 	}
 
-	protected void parseAndValidate(String resourceName) throws IOException, Exception {
+	protected void parseAndValidate(String resourceName) throws Exception {
 		String ts = getTS(resourceName);
 		Typescript typeScript = parseHelper.parse(ts);
 		validationHelper.assertNoErrors(typeScript);
