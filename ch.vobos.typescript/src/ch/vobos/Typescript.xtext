@@ -55,9 +55,9 @@ TypeMember:
     docComment = DocComment?
     signature = ( PropertySignature
     /*	| CallSignature
-    	| ConstructSignature
+    	| ConstructSignature */
     	| IndexSignature
-    	| MethodSignature */
+    /*  | MethodSignature */
 	);
 
 PropertySignature:
@@ -103,7 +103,13 @@ DocComment: {DocComment}
 
 AnnotationLine:
     DOC_ANNOTATION_PREFIX annotationName=ID;
-   
+
+IndexSignature:
+    '[' ID ':' indexType=IndexType ']' valueType=Type;
+    
+enum IndexType:
+      number | string;
+    
 terminal DOC_COMMENT_END: (' '|'\t')* '*' '/';
 
 terminal DOC_ANNOTATION_PREFIX: (' '|'\t')* '* @';

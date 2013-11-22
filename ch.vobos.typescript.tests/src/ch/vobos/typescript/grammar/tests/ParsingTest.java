@@ -49,6 +49,9 @@ public class ParsingTest {
 		parseAndValidate("module.ts");
 	}
 
+	@Test public void testIndexSignature() throws Exception {
+		parseAndValidate("index.ts");
+	}	
 	
 	protected void parseAndValidate(String resourceName) throws Exception {
 		// see also same code in ch.vobos.typescript.standalone.TypeScriptStandalone.parseAndValidate(String)
