@@ -4,8 +4,10 @@ generate typescript "http://www.vobos.ch/Typescript"
 
 Typescript:
 	imports+= ImportDeclaration*
-	interfacesAndClasses += (ModuleDeclaration  | Declaration)*;
+	interfacesAndClasses=InterfacesAndClasses;
 
+InterfacesAndClasses: {InterfacesAndClasses}
+    (modules+=ModuleDeclaration  | types+=Declaration)*;
 
 ImportDeclaration: 
 	"import" alias=Identifier "=" name=QualifiedName ;
@@ -50,12 +52,13 @@ ObjectType: { ObjectType }
 	"{" (members += TypeMember ';'?)* "}";
 
 TypeMember:
-	PropertySignature
-/*	CallSignature
-	ConstructSignature
-	IndexSignature
-	MethodSignature */
-;
+    docComment = DocComment?
+    signature = ( PropertySignature
+    /*	| CallSignature
+    	| ConstructSignature */
+    	| IndexSignature
+    /*  | MethodSignature */
+	);
 
 PropertySignature:
 	name = IdentifierName // | StringLiteral | NumericLiteral
@@ -95,10 +98,22 @@ QualifiedName:
 enum PredefinedTypeEnum:
 	any | number | boolean | string | void;
 
-DocComment:
-    '/**' DocCommentLines '*/';
+DocComment: {DocComment}
+    '/**' lines+=DOC_COMMENT_LINE* annotations+=AnnotationLine* DOC_COMMENT_END;
+
+AnnotationLine:
+    DOC_ANNOTATION_PREFIX annotationName=ID;
+
+IndexSignature:
+    '[' ID ':' indexType=IndexType ']' valueType=Type;
     
-DocCommentLines:
-    '*'? ;
+enum IndexType:
+      number | string;
     
-//terminal ML_COMMENT : '/*'!'*' -> '*/';
+terminal DOC_COMMENT_END: (' '|'\t')* '*' '/';
+
+terminal DOC_ANNOTATION_PREFIX: (' '|'\t')* '* @';
+
+terminal DOC_COMMENT_LINE : (' '|'\t')* '*'!'/' !'@' -> ('\r'? '\n');
+
+terminal ML_COMMENT : '/*'!'*' -> '*/';
