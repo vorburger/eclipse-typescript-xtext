@@ -11,3 +11,7 @@ Continuous Integration
 see https://travis-ci.org/vorburger/eclipse-typescript-xtext
 [![Build Status](https://travis-ci.org/vorburger/eclipse-typescript-xtext.png?branch=master)](https://travis-ci.org/vorburger/eclipse-typescript-xtext)
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vorburger/eclipse-typescript-xtext/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
