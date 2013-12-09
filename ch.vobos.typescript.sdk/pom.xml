@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../ch.vobos.typescript.releng/pom.xml</relativePath>
+		<groupId>ch.vobos.typescript</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ch.vobos.typescript.sdk</artifactId>
+	<packaging>eclipse-feature</packaging>
+
+	<name>ch.vobos.typescript.feature: VoBo(O)s Xtext TypeScript Feature</name>
+</project>

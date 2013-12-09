@@ -26,31 +26,31 @@ public class ParsingTest {
 	@Inject ValidationTestHelper validationHelper;
 	
 	@Test public void testSimple() throws Exception {
-		parseAndValidate("simple.ts");
+		parseAndValidate("/simple.ts");
 	}
 
 	@Test public void testExtends() throws Exception {
-		parseAndValidate("extends.ts");
+		parseAndValidate("/extends.ts");
 	}
 
 	@Test public void testArray() throws Exception {
-		parseAndValidate("array.ts");
+		parseAndValidate("/array.ts");
 	}
 
 	@Test public void testTypeLitteral() throws Exception {
-		parseAndValidate("type-litteral.ts");
+		parseAndValidate("/type-litteral.ts");
 	}
 
 	@Test public void testClass() throws Exception {
-		parseAndValidate("class.ts");
+		parseAndValidate("/class.ts");
 	}
 
 	@Test public void testModule() throws Exception {
-		parseAndValidate("module.ts");
+		parseAndValidate("/module.ts");
 	}
 
 	@Test public void testIndexSignature() throws Exception {
-		parseAndValidate("index.ts");
+		parseAndValidate("/index.ts");
 	}	
 	
 	protected void parseAndValidate(String resourceName) throws Exception {
@@ -61,7 +61,10 @@ public class ParsingTest {
 	}
 
 	protected String getTS(String resourceName) throws IOException {
-		URL url = Resources.getResource(resourceName);
+		// It's important to use getResource(Class<?> contextClass, String resourceName)
+		// here and not just getResource(String resourceName), because while in a standalone JSE
+		// test this will work, when running as a (Tycho) OSGi test it won't...
+		URL url = Resources.getResource(ParsingTest.class, resourceName);
 		String ts = Resources.toString(url, Charsets.UTF_8);
 		return ts;
 	}

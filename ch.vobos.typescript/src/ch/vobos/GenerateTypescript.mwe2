@@ -4,24 +4,48 @@ import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
-var grammarURI = "classpath:/ch/vobos/Typescript.xtext"
 var fileExtensions = "ts"
 var projectName = "ch.vobos.typescript"
+
+// Manually adapted after created by Wizard
+// based on https://github.com/svenefftinge/maven-xtext-example
+
+// grammarURI has to be platform:/resource instead of classpath: as it is not on the classpath
+// var grammarURI = "classpath:/ch/vobos/Typescript.xtext"
+var grammarURI = "platform:/resource/${projectName}/src/ch/vobos/Typescript.xtext"
+
 var runtimeProject = "../${projectName}"
 var generateXtendStub = true
 var encoding = "UTF-8"
 
 Workflow {
     bean = StandaloneSetup {
+    	// use an XtextResourceset throughout the process, which is able to resolve classpath:/ URIs.
+    	resourceSet = org.eclipse.xtext.resource.XtextResourceSet:theResourceSet {}
+    	
+    	// add mappings from platform:/resource to classpath:/
+    	uriMap = {
+    		from = "platform:/resource/org.eclipse.xtext.xbase/"
+    		to = "classpath:/"
+    	}
+    	uriMap = {
+    		from = "platform:/resource/org.eclipse.xtext.common.types/"
+    		to = "classpath:/"
+    	}
+    	
+    	// this isn't in maven-xtext-example, but probably doesn't hurt either?
     	scanClassPath = true
+    	
     	platformUri = "${runtimeProject}/.."
+    	
     	// The following two lines can be removed, if Xbase is not used.
-    	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-    	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+//    	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+//    	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
     }
     
     component = DirectoryCleaner {
     	directory = "${runtimeProject}/src-gen"
+    	exclude = ".gitempty"
     }
     
     component = DirectoryCleaner {
@@ -30,10 +54,12 @@ Workflow {
     
     component = DirectoryCleaner {
     	directory = "${runtimeProject}.ui/src-gen"
+    	exclude = ".gitempty"
     }
     
     component = DirectoryCleaner {
     	directory = "${runtimeProject}.tests/src-gen"
+    	exclude = ".gitempty"
     }
     
     component = Generator {
@@ -44,6 +70,9 @@ Workflow {
     	projectNameUi = "${projectName}.ui"
     	encoding = encoding
     	language = auto-inject {
+    		// make sure we use the resourceSet created during standalone setup.
+    		forcedResourceSet = theResourceSet
+    		
     		uri = grammarURI
     
     		// Java API to access grammar elements (required by several other fragments)
@@ -119,10 +148,10 @@ Workflow {
     		fragment = refactoring.RefactorElementNameFragment auto-inject {}
     
     		// provides the necessary bindings for java types integration
-    		fragment = types.TypesGeneratorFragment auto-inject {}
+//    		fragment = types.TypesGeneratorFragment auto-inject {}
     
     		// generates the required bindings only if the grammar inherits from Xbase
-    		fragment = xbase.XbaseGeneratorFragment auto-inject {}
+//    		fragment = xbase.XbaseGeneratorFragment auto-inject {}
     
     		// provides a preference page for template proposals
     		fragment = templates.CodetemplatesGeneratorFragment auto-inject {}

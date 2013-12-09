@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/ch.vobos.typescript.sdk_1.0.0.qualifier.jar" id="ch.vobos.typescript.sdk" version="1.0.0.qualifier">
+      <category name="ch.vobos.typescript"/>
+   </feature>
+   <category-def name="ch.vobos.typescript" label="TypeScript (with Xtext) - by VoBo(O)s"/>
+</site>
