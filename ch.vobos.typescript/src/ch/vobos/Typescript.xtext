@@ -1,6 +1,8 @@
 grammar ch.vobos.Typescript with org.eclipse.xtext.common.Terminals
-
 generate typescript "http://www.vobos.ch/Typescript"
+
+// TODO complete this to be the full TS grammar...
+// ... based on a full JS grammar.. looking at e.g. http://www.antlr3.org/grammar/1153976512034/ecmascriptA3.g for inspiration?
 
 Typescript:
 	imports+= ImportDeclaration*
